@@ -7,16 +7,22 @@ export default async ({ req, res, log, error }) => {
   // If something goes wrong, log an error
   error('Hello, Errors!');
 
-  // Parse the request body to extract additional data
-  const requestBody = JSON.parse(req.body);
+  try {
+    // Parse the request body to extract additional data
+    const requestBody = req.body ? JSON.parse(req.body) : {};
 
-  // Access additional data sent by the client
-  const customHeaderData = requestBody.customHeaderData;
+    // Access additional data sent by the client
+    const customHeaderData = requestBody.customHeaderData;
 
-  // Use the additional data in your function logic
-  // For example, log or process the data
-  log('Custom Header Data:', customHeaderData);
+    // Use the additional data in your function logic
+    // For example, log or process the data
+    log('Custom Header Data:', customHeaderData);
 
-  // Send a response back to the client
-  return res.send('Function executed successfully!');
+    // Send a response back to the client
+    return res.send('Function executed successfully!');
+  } catch (e) {
+    // Handle JSON parsing errors
+    error('Error parsing JSON:', e);
+    return res.send('Error processing request.');
+  }
 };
