@@ -14,9 +14,17 @@ export default async ({ req, res, log, error }) => {
     // Access additional data sent by the client
     const customHeaderData = requestBody.customHeaderData;
 
+    // Check if customHeaderData is undefined
+    if (customHeaderData === undefined) {
+      // Handle the case where customHeaderData is undefined
+      log('customHeaderData is undefined');
+      // Send an appropriate response to the client
+      return res.send('customHeaderData is undefined');
+    }
+
     // Use the additional data in your function logic
     // For example, log or process the data
-    log('Custom Header Data:'); console.log(customHeaderData);
+    console.log('Custom Header Data:', customHeaderData);
 
     // Send a response back to the client
     return res.send('Function executed successfully!');
