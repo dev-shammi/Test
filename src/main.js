@@ -16,7 +16,7 @@ export default async ({ req, res, log, error }) => {
 
     // Use the additional data in your function logic
     // For example, log or process the data
-    log('Custom Header Data:', customHeaderData);
+    log('Custom Header Data:'); console.log(customHeaderData);
 
     // Send a response back to the client
     return res.send('Function executed successfully!');
