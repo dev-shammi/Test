@@ -24,10 +24,21 @@ export default async ({ req, res, log, error }) => {
 
     // Use the additional data in your function logic
     // For example, log or process the data
-    console.log('Custom Header Data:', customHeaderData);
+    log('Custom Header Data:', customHeaderData);
 
-    // Send a response back to the client
-    return res.send('Function executed successfully!');
+    // Set CORS headers in the response data
+    const responseData = {
+      customHeaderData: customHeaderData,
+      corsHeaders: {
+        'Access-Control-Allow-Origin': '*', // Allow requests from all origins (adjust as needed)
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS', // Allow specified HTTP methods
+        'Access-Control-Allow-Headers': 'Content-Type', // Allow specified headers
+      },
+      message: 'Function executed successfully!'
+    };
+
+    // Send the response data back to the client
+    return res.send(responseData);
   } catch (e) {
     // Handle JSON parsing errors
     error('Error parsing JSON:', e);
